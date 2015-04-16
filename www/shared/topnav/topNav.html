@@ -1,0 +1,12 @@
+<ion-header-bar class="bar-light">
+	<div class="button-bar">
+		<button class="button button-icon icon ion-wrench text-align-left" ng-if="page == 'wall'" ng-click="showWallSettings()"></button>
+		<button ng-if="page == 'home'" class="button button-icon icon ion-power text-align-left" ng-click="showLogout()"></button>
+
+		<button class="button button-clear titleButton" ng-click="toPage('home')">
+			<span class="sapBlueText">Cool</span>Wall
+		</button>
+
+		<button class="button button-icon icon ion-plus text-align-right" ng-click="performContextualAction()"></button>
+	</div>	
+</ion-header-bar>

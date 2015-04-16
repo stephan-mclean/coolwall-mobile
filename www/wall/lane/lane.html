@@ -1,0 +1,27 @@
+<h4 class="text-center">{{lane.title}}</h4>
+<button class="button button-icon icon ion-gear-a laneOptionsBtn" ng-click="showLaneOptionsModal()"></button> 
+<button class="button button-icon icon ion-plus laneAddCardBtn" ng-click="showAddCardPopup()"></button> 
+
+<ion-content id="laneCardContent">
+	<ion-list>
+		<ion-item ng-repeat="card in lane.cards" style="margin: 20px; border-radius: 5px;">
+			<div on-touch="cardDrag()" on-release="dragRelease()" ng-click="showCardModal(card)">
+			    
+			  <card card="card" cards="lane.cards"></card>
+			    
+			  <ion-option-button class="button-positive"
+			               ng-click="showCardModal(card)">
+			        Edit
+			  </ion-option-button>
+			  <ion-option-button class="buttonDanger"
+			               ng-click="showDeleteCardPopup(card)">
+			        Delete
+			  </ion-option-button>
+
+			</div>
+		</ion-item>
+	</ion-list>
+
+</ion-content>
+
+

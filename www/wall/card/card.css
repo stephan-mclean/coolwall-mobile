@@ -1,0 +1,27 @@
+.card {
+  cursor: pointer;
+  background: #FFFFFF;
+  border: 1px solid #979797;
+  padding: 5px;
+}
+
+.card .cover {
+	border: 1px solid #979797;
+	background: #FFFFFF; /* In case of PNG */
+}
+
+.card h5, .card p {
+  white-space: pre;
+}
+
+/* Card Modal */
+.modal-body .cardDescription {
+  font-size: 18px; 
+  color: #5F5959;
+}
+
+.modal-body #cardDescription:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+

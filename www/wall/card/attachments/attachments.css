@@ -1,0 +1,26 @@
+.attachments {
+	border: 1px solid #979797;
+	padding: 5px;
+	margin-bottom: 7px;
+	max-height: 130px;
+	overflow: auto;
+}
+
+.attachments img {
+	height: 100px;
+	width: 100px;
+}
+
+.attachmentUrlInput {
+	margin-bottom: 5px;
+}
+
+.attachment {
+	margin-bottom: 5px;
+	border-bottom: 1px solid #D8D8D8;
+	padding-bottom: 5px;
+}
+
+.attachment:last-child {
+	border: none;
+}

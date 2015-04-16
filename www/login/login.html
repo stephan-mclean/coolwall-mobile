@@ -1,0 +1,20 @@
+<ion-pane id="loginContainer">
+	<div class="list" id="loginWell">
+	  
+	  <h3><span class="sapBlueText">Cool</span>Wall</h3>
+      <p ng-show="errorMessage" class="dangerText">{{errorMessage}}</p> 
+	  
+	  <label class="item item-input" ng-class="{'error': errorMessage}">
+	    <input type="text" placeholder="Email" ng-model="user.email">
+	  </label>
+	  <label class="item item-input" ng-class="{'error': errorMessage}">
+	    <input type="password" placeholder="Password" ng-model="user.password">
+	  </label>
+
+	  <button class="button button-block sapBlueText" ng-click="login()">
+		Login
+	  </button>
+
+	</div>
+
+</ion-pane>

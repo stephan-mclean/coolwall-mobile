@@ -1,0 +1,31 @@
+<h4>Comments</h4>
+
+<div class="comments" id="card{{card.id}}Comments">
+	
+	<p ng-if="comments.length == 0">No comments for this card.</p>
+
+	<div ng-repeat="comment in comments | toArray | orderBy:'created':true" class="comment">
+		<p>
+			<span class="sapBlueText">{{comment.user.name}}</span>
+			<span ng-if="comment.created"> 
+				commented <span class="greyText">{{comment.created | timeago:'ago'}}</span>
+			</span>
+		</p>
+		<p>{{comment.text}}</p>
+	</div>
+</div>
+
+<input 
+	type="text" 
+	class="form-control cardCommentInput"
+	id="addCommentInput" 
+	ng-model="comment.text" 
+	placeholder="Write a comment"
+	ng-focus="showAddComment = true"
+	ng-blur="showAddComment = false"
+	ng-keyup="$event.keyCode == 13 && addComment()"
+>
+
+<div ng-show="showAddComment" class="addComment">
+	<button type="button" class="btn btn-default buttonAccept" ng-click="addComment()">Post</button>
+</div>

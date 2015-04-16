@@ -1,0 +1,14 @@
+<div class="list membersList list-inset">
+	<div class="item item-divider">
+	    Members
+	</div>
+
+	<div class="item" ng-repeat="member in members">
+		{{member.user.name}}
+	</div>
+
+</div>
+
+<button class="button button-clear button-positive addMemberButton" ng-click="showAddMemberPopup();">
+	Add a member
+</button>

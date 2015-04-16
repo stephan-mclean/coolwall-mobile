@@ -1,0 +1,18 @@
+<top-nav user="user"></top-nav>
+<ion-pane class="hasHeader">
+  
+  <h3 class="text-center">{{wall.title}}</h3>
+  <ion-slide-box show-pager="true">
+    
+    <ion-slide ng-repeat="lane in wall.lanes" on-drag="slideDrag()">
+      <lane lane="lane" lanes="wall.lanes"></lane>
+    </ion-slide>
+
+    <!-- Update CSS Here -->
+    <ion-slide ng-if="wall.lanes.length == 0">
+      No lanes to show
+    </ion-slide>
+  
+  </ion-slide-box>
+
+</ion-pane>

@@ -1,0 +1,8 @@
+.slider {
+  height: 90%;
+  background: #F1F1F1;
+}
+
+.hasHeader {
+  top: 44px !important;
+}

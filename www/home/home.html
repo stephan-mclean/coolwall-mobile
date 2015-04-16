@@ -1,0 +1,20 @@
+<top-nav user="user"></top-nav>
+<ion-content class="has-header">
+	<h4 class="text-center">My Walls</h4>
+	<ion-list>
+		<ion-item 
+			ng-repeat="wall in walls | toArray | orderBy:'created':true" style="margin: 20px; border-radius: 5px;"
+			ng-click="showWall(wall.id)">
+			<h2>{{wall.title}}<h2>
+			<p class="greyText">
+				{{wall.created | timeago:'old'}} | {{wall.numMembers}} members<span ng-if="wall.moderator"> | Moderated by you</span>
+			</p>
+			<ion-option-button 
+				class="buttonDanger"
+			    ng-click="showDeleteWallPopup(wall)">
+			    Delete
+			</ion-option-button>
+		</ion-item>
+	</ion-list>
+	<!--<tile ng-repeat="wall in walls | toArray | orderBy:'created':true" wall="wall" walls="walls" /> -->
+</ion-content>

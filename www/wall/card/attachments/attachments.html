@@ -1,0 +1,72 @@
+<h4>Attachments</h4>
+
+<div class="attachments" id="card{{card.id}}Attachments">
+	
+	<p ng-if="attachments.length == 0">No attachments for this card.</p>
+
+	<div ng-repeat="attachment in attachments | toArray | orderBy:'created':true" class="row attachment">
+		<!-- Thumbnail -->
+		<div class="col-md-4">
+			<img ng-src="{{attachment.url}}" class="img-responsive">
+		</div>
+		<!-- Description --> 
+		<div class="col-md-8">
+      <p ng-if="attachment.fileName">{{attachment.fileName}}</p>
+			<p>Added <span class="greyText">{{attachment.created | timeago:'ago'}}</span></p>
+			<button type="button" class="btn btn-link dangerText" ng-click="showModal('#attachment' + attachment.id + 'DeleteModal')" data-dismiss="modal" data-toggle="modal" data-target="#attachment{{attachment.id}}DeleteModal">Delete</button>
+		</div>
+
+    <!-- Delete Attachment Modal -->
+    <div class="modal fade" id="attachment{{attachment.id}}DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title" id="myModalLabel">Delete Attachment</h3>
+          </div>
+
+          <div class="modal-body">
+            <p class="largeDescription">Are you sure you want to delete this attachment?</p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default modalButton buttonDanger" data-dismiss="modal" data-toggle="modal" data-target="#card{{card.id}}Modal" ng-click="deleteAttachment(attachment.id); showModal('#card' + card.id + 'Modal');">Delete</button>
+            <button type="button" class="btn btn-default modalButton" data-dismiss="modal" ng-click="showModal('#card' + card.id + 'Modal')" data-toggle="modal" data-target="#card{{card.id}}Modal">Cancel</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <!-- End Modal -->
+	</div>
+
+</div>
+
+<button type="button" class="btn btn-link" ng-click="showModal('#card' + card.id + 'AttachmentModal')" data-dismiss="modal" data-toggle="modal"
+                data-target="#card{{card.id}}AttachmentModal">Add Attachment</button>
+
+<!-- Add Attachment Modal --> 
+<div class="modal fade" id="card{{card.id}}AttachmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" id="myModalLabel">Add an Attachment</h3>
+      </div>
+
+      <div class="modal-body">
+      	<span>{{400 - newAttachment.url.length}}</span>
+        <input type="text" ng-disabled="newAttachment.data"class="form-control attachmentUrlInput" placeholder="Enter a URL" ng-model="newAttachment.url">
+        <input type="file" fileread="newAttachment.data" filename="newAttachment.fileName"/>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default modalButton buttonAccept" data-dismiss="modal" data-toggle="modal" data-target="#card{{card.id}}Modal" ng-click="addAttachment(); showModal('#card' + card.id + 'Modal');">Done</button>
+        <button type="button" class="btn btn-default modalButton" data-dismiss="modal" ng-click="showModal('#card' + card.id + 'Modal')" data-toggle="modal" data-target="#card{{card.id}}Modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>

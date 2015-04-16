@@ -1,0 +1,28 @@
+.bar.bar-light {
+  border-color: #3B73AF;
+}
+
+.bar-header {
+  border-bottom-width: 2px;
+  border-color: #3B73AF;
+}
+
+.bar .title {
+	font-size: 23px;
+}
+
+.bar .button.button-icon {
+	font-size: 13px;
+}
+
+.text-align-left {
+	text-align: left !important;
+} 
+
+.text-align-right {
+	text-align: right !important;
+}
+
+.titleButton {
+	font-size: 24px !important;
+}

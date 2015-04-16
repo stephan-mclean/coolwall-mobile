@@ -1,0 +1,45 @@
+/* Store color values here */
+.sapBlueText {
+	color: #3B73AF;
+}
+
+.darkText {
+	color: #000000;
+}
+
+.dangerText {
+	color: #EC1D1D;
+}
+
+.btn-link.dangerText:hover {
+	color: #D41A1A;
+	text-decoration: underline;
+}
+
+.greyText {
+	color: #83878C;
+}
+
+.buttonAccept {
+  background: #35CF30;
+  border: 1px solid #35CF30;
+  color: #FFFFFF;
+}
+
+.buttonAccept:hover {
+  background: #30BA2B;
+  border: 1px solid #30BA2B;
+  color: #FFFFFF;
+}
+
+.buttonDanger {
+	background: #EC1D1D;
+	color: #FFFFFF;
+	border: 1px solid #EC1D1D;
+}
+
+.buttonDanger:hover {
+	background: #D41A1A;
+	border: 1px solid #D41A1A;
+	color: #FFFFFF;
+}
