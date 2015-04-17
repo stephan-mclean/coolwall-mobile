@@ -3,9 +3,19 @@
 <button class="button button-icon icon ion-plus laneAddCardBtn" ng-click="showAddCardPopup()"></button> 
 
 <ion-content id="laneCardContent">
-	<ion-list>
-		<ion-item ng-repeat="card in lane.cards" style="margin: 20px; border-radius: 5px;">
-			<div on-touch="cardDrag()" on-release="dragRelease()" ng-click="showCardModal(card)">
+	<ion-list 
+		sortable 
+		draggable=".draggableCard" 
+		sorted="onReorder($fromIndex, $toIndex, $data)" 
+		outside-container="onOutsideContainer()"
+		sort-id="{{lane.id}}"
+		class="sortableList"
+		sortable-data="lane.cards">
+		<ion-item 
+		ng-repeat="card in lane.cards" 
+		style="margin: 20px; border-radius: 5px;" class="draggableCard">
+
+			<div on-touch="cardDrag()" on-hold="cardHold()" on-release="dragRelease()" ng-click="showCardModal(card)">
 			    
 			  <card card="card" cards="lane.cards"></card>
 			    
@@ -19,9 +29,18 @@
 			  </ion-option-button>
 
 			</div>
+
 		</ion-item>
 	</ion-list>
 
 </ion-content>
+
+<!-- ng-drag="true" 
+		ng-drop="true"
+		ng-drag-data="card" 
+		ng-drop-success="onDropComplete($index, $data, $event)"
+		ng-drag-start="onDragStart($data, $event)"
+		ng-drag-stop="onDropFail($event)"
+		ng-drag-move="onDragMove($data, $event)" -->
 
 

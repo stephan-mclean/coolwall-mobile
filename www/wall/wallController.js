@@ -185,9 +185,9 @@ angular.module('coolwallApp')
       Called when reordering cards
     */
     $scope.$on('changeSlide', function() {
-      $ionicSlideBoxDelegate.enableSlide(true);
+      //$ionicSlideBoxDelegate.enableSlide(true);
       $ionicSlideBoxDelegate.next();
-      $ionicSlideBoxDelegate.enableSlide(false);
+      //$ionicSlideBoxDelegate.enableSlide(false);
     })
 
     $scope.slideDrag = function() {

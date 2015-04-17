@@ -225,19 +225,45 @@ angular.module('coolwallApp')
 
     		$scope.dragRelease = function() {
     			$scope.$emit('cardDragEnd');
+    			$ionicListDelegate.canSwipeItems(true);
     		};
+
+    		$scope.cardHold = function() {
+    			$ionicListDelegate.canSwipeItems(false);
+    		}
 
     		$scope.$on('slideBoxDrag', function() {
     			$ionicListDelegate.closeOptionButtons();
     		});
 
-    		$scope.onReorder = function(from, to) {
+    		$scope.onReorder = function(from, to, data) {
+    			//console.log("LANE DROP: " + $scope.lane.title + " " + from + " " + to);
     			console.log(from, to);
+    			//console.log(data);
+    			//console.log($scope.lane.cards);
+
+    			if(from != undefined && to != undefined) {
+    				$scope.lane.cards.splice(to, 0, $scope.lane.cards.splice(from, 1)[0]);
+    			}
+    			else if(from == undefined) {
+    				//console.log("FROM UNDEFINED");
+    				$scope.lane.cards.splice(to, 0, data);
+    				//console.log($scope.lane.cards);
+    			}
+    			else if(to == undefined) {
+    				//console.log("TO UNDEFINED");
+    				$timeout(function() {
+    					$scope.lane.cards.splice(from, 1);	
+    				}, 50);
+    				
+    			}
     		}
 
-    		$scope.changeSlide = function() {
+    		$scope.onOutsideContainer = function() {
     			$scope.$emit('changeSlide');
     		}
+
+
 		}
 	};
 });
