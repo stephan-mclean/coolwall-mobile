@@ -41,8 +41,7 @@ angular.module('coolwallApp')
 				var theUser = {'id': user.id + "", 'moderator': '0'}; // Fix moderator here
 				$scope.addFunc({user: theUser}).then(function(result) {
 					$scope.members.push(result);
-					$scope.searchResults = [];
-					$scope.searchFor.term = '';
+					$scope.closeAddMemberModal();
 				})
 			};
 		}

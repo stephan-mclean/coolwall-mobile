@@ -9,7 +9,7 @@ angular.module('coolwallApp')
 			card: '=',
 			cards: '='
 		},
-		controller : function($scope, $rootScope, $ionicModal, $ionicPopup, CardService) {
+		controller : function($scope, $rootScope, $ionicModal, $ionicPopup, CardService, MemberService) {
 			$scope.editingDescription = false;
 
 			/*
@@ -26,7 +26,26 @@ angular.module('coolwallApp')
 				Show the card options modal
 			*/
 			$scope.showCardOptionsModal = function() {
-				 $scope.cardOptionsModal.show();
+				// Load extra card details before modal is shown
+				if(!$scope.card.comments) {
+					CardService.getComments($scope.card.id).then(function(result) {
+						$scope.card.comments = result;
+					});
+				}
+
+				if(!$scope.card.members) {
+					CardService.getMembers($scope.card.id).then(function(result) {
+						$scope.card.members = result;
+					});
+				}
+
+				if(!$scope.card.attachments) {
+					CardService.getAttachments($scope.card.id).then(function(result) {
+						$scope.card.attachments = result;
+					});
+				}
+
+				$scope.cardOptionsModal.show();
 			};
 
 			/*
@@ -66,33 +85,6 @@ angular.module('coolwallApp')
 			          }
 			        ]
 			     });
-			};
-
-			$scope.showModal = function(id) {
-
-				// Load extra card details before modal is shown
-				if(!$scope.card.comments) {
-					CardService.getComments($scope.card.id).then(function(result) {
-						$scope.card.comments = result;
-					});
-				}
-
-				if(!$scope.card.members) {
-					CardService.getMembers($scope.card.id).then(function(result) {
-						$scope.card.members = result;
-					});
-				}
-
-				if(!$scope.card.attachments) {
-					CardService.getAttachments($scope.card.id).then(function(result) {
-						$scope.card.attachments = result;
-					});
-				}
-
-				$rootScope.showModal(id);
-				$(id).on('hidden.bs.modal', function(e) {
-					$scope.editingDescription = false;
-				});
 			};
 
 			$scope.updateCard = function() {

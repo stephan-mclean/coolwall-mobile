@@ -3,8 +3,14 @@
 	    Members
 	</div>
 
-	<div class="item" ng-repeat="member in members">
-		{{member.user.name}}
+	<ion-scroll style="max-height: 200px;" direction="y">
+		<div class="item" ng-repeat="member in members">
+			{{member.user.name}}
+		</div>
+	</ion-scroll>
+
+	<div class="item" ng-show="members.length == 0">
+		No members to show
 	</div>
 
 </div>

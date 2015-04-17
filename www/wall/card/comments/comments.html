@@ -1,31 +1,22 @@
-<h4>Comments</h4>
-
-<div class="comments" id="card{{card.id}}Comments">
-	
-	<p ng-if="comments.length == 0">No comments for this card.</p>
-
-	<div ng-repeat="comment in comments | toArray | orderBy:'created':true" class="comment">
-		<p>
-			<span class="sapBlueText">{{comment.user.name}}</span>
-			<span ng-if="comment.created"> 
-				commented <span class="greyText">{{comment.created | timeago:'ago'}}</span>
-			</span>
-		</p>
-		<p>{{comment.text}}</p>
+<div class="list membersList list-inset">
+	<div class="item item-divider">
+	    Comments
 	</div>
-</div>
 
-<input 
-	type="text" 
-	class="form-control cardCommentInput"
-	id="addCommentInput" 
-	ng-model="comment.text" 
-	placeholder="Write a comment"
-	ng-focus="showAddComment = true"
-	ng-blur="showAddComment = false"
-	ng-keyup="$event.keyCode == 13 && addComment()"
->
+	<ion-scroll style="max-height: 200px;" direction="y">
+		<div class="item" ng-repeat="comment in comments">
+			<p>
+				<span class="sapBlueText">{{comment.user.name}}</span>
+				<span ng-if="comment.created"> 
+					commented <span class="greyText">{{comment.created | timeago:'ago'}}</span>
+				</span>
+			</p>
+			<p>{{comment.text}}</p>
+		</div>
+	</ion-scroll>
 
-<div ng-show="showAddComment" class="addComment">
-	<button type="button" class="btn btn-default buttonAccept" ng-click="addComment()">Post</button>
+	<div class="item" ng-show="comments.length == 0">
+		No comments to show
+	</div>
+
 </div>
