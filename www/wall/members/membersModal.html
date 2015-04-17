@@ -1,0 +1,39 @@
+<ion-modal-view>
+	
+	<ion-header-bar>
+	  <button class="button button-icon icon ion-close-round" ng-click="closeAddMemberModal()"></button>
+	  <h3 class="title">Add a member</h3>
+	</ion-header-bar>
+	
+	<ion-content>
+	  <div class="list">
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Member Name</span>
+		    <input type="text" ng-model="searchFor.term" ng-change="search()">
+		  </label>
+	  </div>
+
+	  <!-- Search Results -->
+
+	  <ion-list ng-show="searchResults && searchResults.length > 0">
+	  	<div class="item item-divider">
+	  		Click to add
+	  	</div>
+	  	<ion-item ng-repeat="user in searchResults" ng-click="addMember(user)">
+	  		<h4>{{user.name}}</h4>
+	  		<p>{{user.email}}</p>
+	    </ion-item>
+	  </ion-list>
+
+	</ion-content>
+	
+	<!-- Buttons to finish modal -->
+    <ion-footer-bar>
+      <div class="button-bar">
+      	<button type="button" class="button" ng-click="closeAddMemberModal()">Cancel</button>
+	    <button type="button" class="button buttonAccept" ng-click="closeAddMemberModal();">Done</button>
+      </div>
+  	  
+    </ion-footer-bar>
+
+</ion-modal-view>

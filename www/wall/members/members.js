@@ -10,7 +10,27 @@ angular.module('coolwallApp')
 			searchFunc: '&',
 			addFunc: '&'
 		},
-		controller : function($scope) {
+		controller : function($scope, $ionicModal) {
+
+			$scope.searchFor = {'term': ''};
+
+			$ionicModal.fromTemplateUrl('wall/members/membersModal.html', {
+		        scope: $scope,
+		        animation: 'slide-in-up'
+		      }).then(function(modal) {
+		        $scope.addMemberModal = modal;
+		    });
+
+		    $scope.showAddMemberModal = function() {
+		    	$scope.addMemberModal.show();
+		    };
+
+		    $scope.closeAddMemberModal = function() {
+		    	$scope.searchFor.term='';
+		    	$scope.searchResults = [];
+		    	$scope.addMemberModal.hide();
+		    };
+
 			$scope.search = function() {
 				$scope.searchFunc({search: $scope.searchFor}).then(function(result) {
 					$scope.searchResults = result;
@@ -24,7 +44,7 @@ angular.module('coolwallApp')
 					$scope.searchResults = [];
 					$scope.searchFor.term = '';
 				})
-			}
+			};
 		}
 	};
 });

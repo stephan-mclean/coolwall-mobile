@@ -2,7 +2,7 @@
 
 angular.module('coolwallApp')
   .controller('WallCtrl', function ($scope, $rootScope, $timeout, $state, $ionicSlideBoxDelegate, $ionicModal, 
-    $ionicPopup, WallService, HomeService, wall) {
+    $ionicPopup, WallService, HomeService, MemberService, wall) {
 
     $scope.wall = wall;
 
@@ -173,6 +173,7 @@ angular.module('coolwallApp')
       return MemberService.addWallMember($scope.wall.id, user);
     }
 
+
     $scope.$on('cardDrag', function() {
       $ionicSlideBoxDelegate.enableSlide(false);
     });
@@ -185,10 +186,8 @@ angular.module('coolwallApp')
       Called when reordering cards
     */
     $scope.$on('changeSlide', function() {
-      //$ionicSlideBoxDelegate.enableSlide(true);
       $ionicSlideBoxDelegate.next();
-      //$ionicSlideBoxDelegate.enableSlide(false);
-    })
+    });
 
     $scope.slideDrag = function() {
       $scope.$broadcast('slideBoxDrag');

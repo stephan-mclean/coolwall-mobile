@@ -154,11 +154,12 @@ angular.module('coolwallApp')
 				})
 			}
 
+			
 			$scope.updateCardsSorting = function(startPos, index, cards) {
 				if(cards == null || cards == undefined) {
 					cards = $scope.lane.cards;
 				}
-				console.log("Sorting from: " + startPos + " to" + index);
+				
 				var i;
 				if(index < startPos) {
 					i = index;
@@ -175,49 +176,6 @@ angular.module('coolwallApp')
 					i++;
 				}
 			}
-
-			$scope.sortableOptions = {
-    		  placeholder: "cardPlaceholder",
-    		  connectWith: ".connectedLane",
-    		  start: function(event, ui) {
-    		  	$(ui.placeholder[0]).css('height', $(ui.item[0]).height());
-    		  	$(ui.item[0]).css({'-webkit-transform' : 'rotate(7deg)',
-                 '-moz-transform' : 'rotate(7deg)',
-                 '-ms-transform' : 'rotate(7deg)',
-                 'transform' : 'rotate(7deg)'}).css('cursor', 'move');
-    		  	ui.item.data = $scope.lane.cards[ui.item.index()];
-    		  	ui.item.startPos = ui.item.index();
-
-    		  },
-    		  stop: function(event, ui) {
-    		  	$(ui.item[0]).css({'-webkit-transform' : 'none',
-                 '-moz-transform' : 'none',
-                 '-ms-transform' : 'none',
-                 'transform' : 'none'}).css('cursor', 'pointer');
-    		  	if(ui.item.index() != -1) {
-    		 		// Sorted in this list, update ordinal for all cards
-    		 		var index = ui.item.index();
-    		 		var updatedCard = {"ordinal": index};
-    		 		//$scope.updateCardsSorting(ui.item.startPos, index, undefined);
-    		 	}
-    		 	else {
-    		 		ui.item.data.targetOrdinal = ui.item.sortable.dropindex;
-    		 		// Update card with new lane ID and ordinal
-    		 		var updatedCard = {'ordinal' : ui.item.data.targetOrdinal + "", 'laneId' : ui.item.data.targetLane + ""};
-    		 		//CardService.updateCard(ui.item.data.id, updatedCard).then(function(result) {
-    		 		//	console.log(result);
-    		 		//});
-    		 		//$scope.updateCardsSorting(0, 0, undefined); // Update for this lane with card removed
-    		 		//$scope.updateCardsSorting(ui.item.data.targetOrdinal + 1, ui.item.data.targetOrdinal + 1, ui.item.data.targetLaneCards) // Update for new lane with card inserted
-    		 	}
-    		 	
-    		  },
-    		  receive : function(event, ui) {
-    		  	/* Received from another list */
-    		  	ui.item.data.targetLane = $scope.lane.id;
-    		  	ui.item.data.targetLaneCards = $scope.lane.cards;
-    		  }
-    		};
 
     		$scope.cardDrag = function() {
     			$scope.$emit('cardDrag');
@@ -236,24 +194,31 @@ angular.module('coolwallApp')
     			$ionicListDelegate.closeOptionButtons();
     		});
 
+    		/*
+				Sorting has finished, reorder the cards accordinly
+				and inform the back end of the change.
+    		*/
     		$scope.onReorder = function(from, to, data) {
-    			//console.log("LANE DROP: " + $scope.lane.title + " " + from + " " + to);
-    			console.log(from, to);
-    			//console.log(data);
-    			//console.log($scope.lane.cards);
-
+    			
     			if(from != undefined && to != undefined) {
     				$scope.lane.cards.splice(to, 0, $scope.lane.cards.splice(from, 1)[0]);
+    				$scope.updateCardsSorting(from, to, undefined);
     			}
     			else if(from == undefined) {
-    				//console.log("FROM UNDEFINED");
+    				
     				$scope.lane.cards.splice(to, 0, data);
-    				//console.log($scope.lane.cards);
+    				var updatedCard = {'ordinal' : to + "", 'laneId' : $scope.lane.id + ""};
+    		 		CardService.updateCard(data.id, updatedCard).then(function(result) {
+    		 			console.log(result);
+    		 		});
+    		 		$scope.updateCardsSorting(to + 1, to + 1, undefined);
+    				
     			}
     			else if(to == undefined) {
     				//console.log("TO UNDEFINED");
     				$timeout(function() {
     					$scope.lane.cards.splice(from, 1);	
+    					$scope.updateCardsSorting(0, 0, undefined);
     				}, 50);
     				
     			}

@@ -1,5 +1,5 @@
 ﻿angular.module('coolwallApp')
-.directive('sortable', ['$ionicGesture', '$ionicScrollDelegate', '$rootScope', function ($ionicGesture, $ionicScrollDelegate, $rootScope) {
+.directive('sortable', ['$ionicGesture', '$ionicScrollDelegate', '$rootScope', '$timeout', function ($ionicGesture, $ionicScrollDelegate, $rootScope, $timeout) {
     return {
         restrict: 'A',
         scope: {
@@ -27,7 +27,7 @@
             var cardSet = null, initialIndex, currentIndex, animating = false, changingSlide = false;
 
             var initialDragThreshold = element[0].children[0].clientWidth / 2;
-            var dragThreshold = initialDragThreshold
+            var dragThreshold = initialDragThreshold;
             
 
             var placeholderHeight;
@@ -46,6 +46,7 @@
                     dragging = data;
                     angular.element(element[0].children[0]).prepend(dragging);
                     dragThreshold = dragThreshold + initialDragThreshold;
+                    console.log(dragThreshold);
                     //placeholder.insertAfter(dragging);
                 }
 
@@ -164,17 +165,19 @@
                         'position': 'fixed'
                     });
 
+
                     if(!changingSlide && newLeft > (dragThreshold) &&
                         ((currentIndex + 1) < allLists.length)) {
                         changingSlide = true;
                         dragging.targetId = angular.element(allLists[currentIndex + 1]).attr('sort-id');
-                        setTimeout(function() {
-                            
+                        $timeout(function() {
+                            console.log(scope.sortId + " SWITCH");
+                            console.log(newLeft);
                             scope.$apply(scope.outsideContainer);
                             $rootScope.$broadcast('dragStart', dragging);
                             placeholder.remove();
                             
-                        }, 2000);
+                        }, 1000);
                     }
                     else {
 
@@ -226,6 +229,7 @@
 
             var touchRelease = function touchRelease(e) {
                 changingSlide = false;
+                dragThreshold = initialDragThreshold;
                 if (dragging) {
                     // Set element back to normal
                     dragging.css({
