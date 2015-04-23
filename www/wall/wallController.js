@@ -171,7 +171,11 @@ angular.module('coolwallApp')
     */
     $scope.addMember = function(user) {
       return MemberService.addWallMember($scope.wall.id, user);
-    }
+    };
+
+    $scope.deleteMember = function(member) {
+      return MemberService.deleteWallMember($scope.wall.id, member.id);
+    };
 
 
     $scope.$on('cardDrag', function() {

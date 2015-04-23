@@ -1,0 +1,12 @@
+<div class="modal full-modal transparent" ng-click="controlsHidden = !controlsHidden">
+    <ion-pane class="transparent">
+       <img ng-src="{{url}}" class="fullscreen-image"/>
+       <button 
+       	class="button button-outline button-small" 
+       	style="position: absolute; top: 5px; right: 5px;"
+       	ng-class="{'hidden' : controlsHidden}"
+       	ng-click="closeModal($event)">
+       	Done
+       </button>
+    </ion-pane>
+</div>

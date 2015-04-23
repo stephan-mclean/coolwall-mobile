@@ -7,7 +7,7 @@
 
 var app = angular.module('coolwallApp');
 
-var baseUrl = 'http://192.168.1.9:4567';
+var baseUrl = 'http://localhost:4567';
 
 /*
 	LocalStorage service. 

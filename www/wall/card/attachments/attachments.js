@@ -9,22 +9,51 @@ angular.module('coolwallApp')
 			attachments: '=',
 			card: '='
 		},
-		controller : function($scope, $rootScope, CardService) {
+		controller : function($scope, $rootScope, $ionicModal, CardService, Camera) {
 
-			$scope.newAttachment = {};
-			
-			$scope.showModal = function(id) {
-				$rootScope.showModal(id);
-				$(id).on("hidden.bs.modal", function() {
-					$scope.newAttachment.url = '';
+			$scope.newAttachment = {'data': '', 'description': ''};
+
+			$ionicModal.fromTemplateUrl('wall/card/attachments/addAttachmentModal.html', {
+		        scope: $scope,
+		        animation: 'slide-in-up'
+		      }).then(function(modal) {
+		        $scope.addAttachmentModal = modal;
+		    });
+
+		    $scope.showAddAttachmentModal = function() {
+		    	$scope.addAttachmentModal.show();
+		    };
+
+		    $scope.closeAddAttachmentModal = function() {
+		    	$scope.addAttachmentModal.hide();
+		    };
+
+		    $scope.takePhoto = function() {
+			  Camera.takePhoto().then(function(imageData) {
+			  	$scope.imageSrc = "data:image/jpeg;base64," + imageData;
+				$scope.imageData = imageData;
+				$scope.$apply()
+			  });
+			};
+
+			$scope.choosePhoto = function() {
+				Camera.choosePhoto().then(function(imageData) {
+					$scope.imageSrc = "data:image/jpeg;base64," + imageData;
+					$scope.imageData = imageData;
+					$scope.$apply()
 				});
-			}
+			};
+
+			$scope.deleteImage = function() {
+				$scope.imageSrc = null;
+				$scope.imageData = null;
+				$scope.$apply();
+			};
 
 			$scope.addAttachment = function() {
-				//console.log($scope.newAttachment);
-				if($scope.newAttachment.data) {
-					$scope.newAttachment.data = $scope.newAttachment.data.replace('data:image/jpeg;base64,', '');
-					$scope.newAttachment.data = $scope.newAttachment.data.replace('data:image/png;base64,', '');
+				
+				if($scope.imageData) {
+					$scope.newAttachment.data = $scope.imageData;
 				}
 
 				CardService.addAttachment($scope.card.id, $scope.newAttachment).then(function(result) {
@@ -34,9 +63,12 @@ angular.module('coolwallApp')
 					}
 					$scope.attachments.push(result);
 					$scope.card.cover = result.url;
-					$scope.newAttachment.url = '';
+					
 					$scope.newAttachment.data = '';
-					$scope.newAttachment.fileName = '';
+					$scope.newAttachment.description = '';
+
+					$scope.imageSrc = null;
+					$scope.imageData = null;
 				});
 
 				

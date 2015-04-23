@@ -28,13 +28,10 @@ angular.module('coolwallApp')
 		});
   	});
 
-  	$scope.$on('delete', function() {
-    	console.log('here');
-    });
-
   	$scope.addNewWall = function() {
   		HomeService.addWall($scope.wall).then(function(result) {
   			$scope.walls.push(result);
+        $scope.wall.title = '';
   		});
   	};
 

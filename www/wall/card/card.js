@@ -12,6 +12,8 @@ angular.module('coolwallApp')
 		controller : function($scope, $rootScope, $ionicModal, $ionicPopup, CardService, MemberService) {
 			$scope.editingDescription = false;
 
+			$scope.user = $rootScope.user;
+
 			/*
 				Load the card modal
 			*/
@@ -108,11 +110,15 @@ angular.module('coolwallApp')
 			}
 
 			$scope.searchMembers = function(search) {
-		      return MemberService.searchAllUsers(search);
+		      return MemberService.searchWallMembers($scope.card.wallId, search);
 		    };
 
 		    $scope.addMember = function(user) {
 		      return MemberService.addCardMember($scope.card.id, user);
+		    };
+
+		    $scope.deleteMember = function(member) {
+		    	return MemberService.deleteCardMember($scope.card.id, member.id);
 		    };
 		}
 	};

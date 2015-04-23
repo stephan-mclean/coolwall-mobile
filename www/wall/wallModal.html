@@ -13,7 +13,13 @@
 		  </label>
 	  </div>
 
-	  <members members="wall.members" search-func="searchMembers(search)" add-func="addMember(user)"></members>
+	  <members 
+	  	members="wall.members" 
+	  	search-func="searchMembers(search)" 
+	  	add-func="addMember(user)"
+	  	delete-func="deleteMember(member)"
+	  	moderator="wall.moderator">
+	  </members>
 	  
 	  <button class="button button-block button-positive" ng-click="showAddLanePopup(); closeWallOptionsModal();">
 		Add Lane

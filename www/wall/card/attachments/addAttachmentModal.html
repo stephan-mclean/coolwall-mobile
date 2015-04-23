@@ -1,0 +1,43 @@
+<ion-modal-view>
+	
+	<ion-header-bar>
+	  <button class="button button-icon icon ion-close-round" ng-click="closeAddAttachmentModal()"></button>
+	  <h3 class="title">Add an Attachment</h3>
+	</ion-header-bar>
+	
+	<ion-content>
+
+	  <div ng-show="imageSrc" class="row">
+
+  		  <div class="col col-50" style="position: relative;">	
+	          <img ng-src="{{imageSrc}}" class="full-image">
+	          <button 
+	            class="button button-clear icon ion-close-circled" 
+	            style="position: absolute; top: 5px; right: 5px;"
+	            ng-click="deleteImage()">
+	          </button>
+  		  </div>
+  	  </div>
+
+  	  <div class="list" ng-show="imageSrc">
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Add a description</span>
+		    <input type="text" ng-model="newAttachment.description" placeholder="Description">
+		  </label>
+	  </div>
+
+	  <button class="button icon-left ion-camera" ng-click="takePhoto()">Take a photo</button>
+	  <button class="button icon-left ion-images" ng-click="choosePhoto()">Choose From Gallery</button>
+
+	</ion-content>
+	
+	<!-- Buttons to finish modal -->
+    <ion-footer-bar>
+      <div class="button-bar">
+      	<button type="button" class="button" ng-click="closeAddAttachmentModal()">Cancel</button>
+	    <button type="button" class="button buttonAccept" ng-click="addAttachment(); closeAddAttachmentModal();">Add</button>
+      </div>
+  	  
+    </ion-footer-bar>
+
+</ion-modal-view>

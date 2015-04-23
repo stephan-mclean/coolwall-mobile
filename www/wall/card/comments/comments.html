@@ -1,22 +1,35 @@
-<div class="list membersList list-inset">
+<div class="list commentsList list-inset">
 	<div class="item item-divider">
 	    Comments
 	</div>
 
 	<ion-scroll style="max-height: 200px;" direction="y">
-		<div class="item" ng-repeat="comment in comments">
-			<p>
-				<span class="sapBlueText">{{comment.user.name}}</span>
-				<span ng-if="comment.created"> 
-					commented <span class="greyText">{{comment.created | timeago:'ago'}}</span>
-				</span>
-			</p>
-			<p>{{comment.text}}</p>
-		</div>
+		<ion-list>
+			
+			<ion-item ng-repeat="comment in comments">
+				<p>
+					<span class="sapBlueText">{{comment.user.name}}</span>
+					<span ng-if="comment.created"> 
+						commented <span class="greyText">{{comment.created | timeago:'ago'}}</span>
+					</span>
+				</p>
+				<p>{{comment.text}}</p>
+
+				<ion-option-button ng-show="comment.user.id == user.id" class="buttonDanger"
+                     ng-click="deleteComment(comment)">
+		              Delete
+		        </ion-option-button>
+
+			</ion-item>
+
+			<ion-item ng-show="comments.length == 0">
+				No comments to show
+			</ion-item>
+
+		</ion-list>
 	</ion-scroll>
-
-	<div class="item" ng-show="comments.length == 0">
-		No comments to show
-	</div>
-
 </div>
+
+<button class="button button-clear button-positive addCommentButton" ng-click="showAddCommentModal();">
+  Add a comment
+</button>

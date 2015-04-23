@@ -36,6 +36,17 @@ angular.module('coolwallApp')
 			return deferred.promise;
 		},
 
+		deleteComment : function(commentId) {
+			var deferred = $q.defer();
+			$http.delete(baseUrl + '/comment/' + commentId).success(function(data) {
+				deferred.resolve(data);
+			})
+			.error(function(data, status, headers, config) {
+				deferred.reject(status);
+			});
+			return deferred.promise;
+		},
+
 		getMembers : function(cardId) {
 			var deferred = $q.defer();
 			$http.get(baseUrl + '/card/' + cardId + "/members").success(function(data) {
